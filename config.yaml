@@ -56,7 +56,7 @@ model_list:
   - model_name: gpt-realtime
     litellm_params:
       model: azure/gpt-realtime
-      api_base: https://global-testing-platform-resource.cognitiveservices.azure.com
+      api_base: os.environ/AZURE_COGNITIVES_BASE_URL
       api_version: "2024-10-01-preview"
       api_key: os.environ/AZURE_API_KEY
     model_info:
@@ -65,7 +65,7 @@ model_list:
   - model_name: gpt-realtime-mini
     litellm_params:
       model: azure/gpt-realtime-mini
-      api_base: https://global-testing-platform-resource.cognitiveservices.azure.com
+      api_base: os.environ/AZURE_COGNITIVES_BASE_URL
       api_version: "2024-10-01-preview"
       api_key: os.environ/AZURE_API_KEY
     model_info:
@@ -74,7 +74,7 @@ model_list:
   - model_name: whisper
     litellm_params:
       model: azure/whisper
-      api_base: https://global-testing-platform-resource.cognitiveservices.azure.com
+      api_base: os.environ/AZURE_COGNITIVES_BASE_URL
       api_version: "2024-10-01-preview"
       api_key: os.environ/AZURE_API_KEY
     model_info:
