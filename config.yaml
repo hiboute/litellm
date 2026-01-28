@@ -1,0 +1,227 @@
+litellm_settings:
+  drop_params: true
+
+router_settings:
+  fallbacks:
+    - claude-opus-4-5: ["claude-opus-4-5-vertex"]
+    - claude-sonnet-4-5: ["claude-sonnet-4-5-vertex"]
+    - claude-haiku-4-5: ["claude-sonnet-4-5-vertex"]
+  num_retries: 2
+  timeout: 300
+
+litellm_settings:
+  request_timeout:
+    enable_pre_call_checks: true  # Check model health before routing
+    health_check_interval: 30  # Check every 30s
+
+model_list:
+  - model_name: gpt-5.2-codex
+    litellm_params:
+      model: azure/gpt-5.2-codex
+      api_base: os.environ/AZURE_OPENAI_BASE_URL
+      api_version: "2025-04-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: gpt-5.2
+    litellm_params:
+      model: azure/gpt-5.2
+      api_base: os.environ/AZURE_OPENAI_BASE_URL
+      api_version: "2025-04-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: gpt-5.1-codex-max
+    litellm_params:
+      model: azure/gpt-5.1-codex-max
+      api_base: os.environ/AZURE_OPENAI_BASE_URL
+      api_version: "2025-04-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: gpt-5.1-codex-mini
+    litellm_params:
+      model: azure/gpt-5.1-codex-mini
+      api_base: os.environ/AZURE_OPENAI_BASE_URL
+      api_version: "2025-04-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+
+  - model_name: azure_tts
+    litellm_params:
+      model: azure/tts
+      api_base: os.environ/AZURE_COGNITIVES_BASE_URL
+      api_version: "2025-04-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: audio_speech
+
+
+  - model_name: gpt-realtime
+    litellm_params:
+      model: azure/gpt-realtime
+      api_base: https://global-testing-platform-resource.cognitiveservices.azure.com
+      api_version: "2024-10-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: realtime
+
+  - model_name: gpt-realtime-mini
+    litellm_params:
+      model: azure/gpt-realtime-mini
+      api_base: https://global-testing-platform-resource.cognitiveservices.azure.com
+      api_version: "2024-10-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: realtime
+
+  - model_name: whisper
+    litellm_params:
+      model: azure/whisper
+      api_base: https://global-testing-platform-resource.cognitiveservices.azure.com
+      api_version: "2024-10-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: audio_transcription
+
+  - model_name: azure/text-embedding-3-large
+    litellm_params:
+      model: azure/text-embedding-3-large
+      api_base: os.environ/AZURE_COGNITIVES_BASE_URL
+      api_version: "2025-04-01-preview"
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: embeddings
+
+  - model_name: azure-sora-2
+    litellm_params:
+      model: azure/sora-2
+      api_base: os.environ/AZURE_OPENAI_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: video_generation
+
+  - model_name: azure_ai/mistral-document-ai-2505
+    litellm_params:
+      model: azure_ai/mistral-document-ai-2505
+      api_base: os.environ/AZURE_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: ocr
+
+  - model_name: claude-sonnet-4-5-vertex[1m]
+    litellm_params:
+      model: vertex_ai/claude-sonnet-4-5
+      custom_llm_provider: vertex_ai
+      vertex_project: oa-tech-taap-dv
+      vertex_location: us-east5
+      vertex_credentials: os.environ/VERTEX_AI_CREDENTIALS
+      extra_headers:
+        anthropic-beta: "context-1m-2025-08-07"
+    model_info:
+      litellm_provider: vertex_ai-anthropic_models
+      mode: chat
+      supports_function_calling: true
+      supports_reasoning: true
+      supports_system_messages: true
+      supports_response_schema: true
+
+  - model_name: claude-sonnet-4-5-vertex
+    litellm_params:
+      model: vertex_ai/claude-sonnet-4-5
+      custom_llm_provider: vertex_ai
+      vertex_project: oa-tech-taap-dv
+      vertex_location: us-east5
+      vertex_credentials: os.environ/VERTEX_AI_CREDENTIALS
+    model_info:
+      litellm_provider: vertex_ai-anthropic_models
+      mode: chat
+      supports_function_calling: true
+      supports_reasoning: true
+      supports_system_messages: true
+      supports_response_schema: true
+
+  - model_name: claude-opus-4-5-vertex
+    litellm_params:
+      model: vertex_ai/claude-opus-4-5
+      custom_llm_provider: vertex_ai
+      vertex_project: oa-tech-taap-dv
+      vertex_location: us-east5
+      vertex_credentials: os.environ/VERTEX_AI_CREDENTIALS
+    model_info:
+      litellm_provider: vertex_ai-anthropic_models
+      mode: chat
+      supports_function_calling: true
+      supports_reasoning: true
+      supports_system_messages: true
+      supports_response_schema: true
+
+  - model_name: gemini-3-pro-preview
+    litellm_params:
+      model: vertex_ai/gemini-3-pro-preview
+      vertex_project: oa-tech-taap-dv
+      vertex_location: global
+      vertex_credentials: os.environ/VERTEX_AI_CREDENTIALS
+
+  # Azure AI Foundry Claude Models - Using Anthropic provider directly
+  - model_name: claude-opus-4-5
+    litellm_params:
+      model: anthropic/claude-opus-4-5
+      api_base: os.environ/AZURE_ANTHROPIC_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: chat
+      supports_function_calling: true
+      supports_system_messages: true
+      supports_response_schema: true
+
+  - model_name: claude-opus-4-5-20250929
+    litellm_params:
+      model: anthropic/claude-opus-4-5
+      api_base: os.environ/AZURE_ANTHROPIC_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: chat
+      supports_function_calling: true
+      supports_system_messages: true
+      supports_response_schema: true
+
+  - model_name: claude-sonnet-4-5
+    litellm_params:
+      model: anthropic/claude-sonnet-4-5
+      api_base: os.environ/AZURE_ANTHROPIC_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: chat
+      supports_function_calling: true
+      supports_system_messages: true
+      supports_response_schema: true
+
+  - model_name: claude-sonnet-4-5-20250929
+    litellm_params:
+      model: anthropic/claude-sonnet-4-5
+      api_base: os.environ/AZURE_ANTHROPIC_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: chat
+      supports_function_calling: true
+      supports_system_messages: true
+      supports_response_schema: true
+
+  - model_name: claude-haiku-4-5
+    litellm_params:
+      model: anthropic/claude-haiku-4-5
+      api_base: os.environ/AZURE_ANTHROPIC_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: chat
+      supports_function_calling: true
+      supports_system_messages: true
+      supports_response_schema: true
+
+  - model_name: claude-haiku-4-5-20250929
+    litellm_params:
+      model: anthropic/claude-haiku-4-5
+      api_base: os.environ/AZURE_ANTHROPIC_BASE_URL
+      api_key: os.environ/AZURE_API_KEY
+    model_info:
+      mode: chat
+      supports_function_calling: true
+      supports_system_messages: true
+      supports_response_schema: true
