@@ -1,5 +1,6 @@
 services:
   litellm:
+    container_name: litellm
     image: docker.litellm.ai/berriai/litellm:main-stable
     #########################################
     ## Uncomment these lines to start proxy with a config.yaml file ##
@@ -25,7 +26,9 @@ services:
       timeout: 10s   # Health check command times out after 10 seconds
       retries: 3     # Retry up to 3 times if health check fails
       start_period: 40s  # Wait 40 seconds after container start before beginning health checks
-
+    networks:   # ADD THIS
+      - dokploy-network   # ADD THIS
+      
   db:
     container_name: db
     image: postgres:16
@@ -43,8 +46,11 @@ services:
       interval: 1s
       timeout: 5s
       retries: 10
-
+    networks:   # ADD THIS
+      - dokploy-network   # ADD THIS
+      
   prometheus:
+    container_name: prometheus
     image: prom/prometheus
     volumes:
       - prometheus_data:/prometheus
@@ -56,7 +62,8 @@ services:
       - "--storage.tsdb.path=/prometheus"
       - "--storage.tsdb.retention.time=15d"
     restart: always
-
+    networks:   # ADD THIS
+      - dokploy-network   # ADD THIS
 volumes:
   prometheus_data:
     driver: local
